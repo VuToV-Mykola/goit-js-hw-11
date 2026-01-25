@@ -10,97 +10,79 @@
     <!-- Українською: Забезпечує сумісність з Internet Explorer / English: Ensures compatibility with Internet Explorer -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Українською: Налаштування адаптивного дизайну / English: Responsive design settings -->
-    <title>JS-HOMEWORK</title>
+    <title>Image Search — GoIT JS HW-11</title>
     <!-- Українською: Заголовок сторінки (вкладка браузера) / English: Page title (browser tab) -->
     <!--!!! STYLES !!!-->
     <link rel="stylesheet" href="./css/styles.css" />
     <!-- Українською: Підключення CSS стилів / English: CSS stylesheet link -->
   </head>
   <!--!!! BODY !!!-->
-  <body class="page page-home">
+  <body class="page page-gallery">
     <!-- Українською: Основний контейнер сторінки / English: Main page container -->
     <!--!!! HEADER !!!-->
-    <!-- Українською: Шаблон верхньої частини сторінки (header) / English: Page header template -->
     <header class="header">
-      <!-- Українською: Верхня частина сторінки з навігацією / English: Top section with navigation -->
+      <!-- Українською: Верхня частина сторінки (лого, навігація) / English: Top section (logo, navigation) -->
       <div class="container">
-        <!-- Українською: Контейнер для обмеження ширини контенту / English: Container for content width limitation -->
-        <!--!!! NAVIGATION !!!-->
-        <nav class="nav">
-          <!-- Українською: Навігаційна панель / English: Navigation bar -->
-          <!--!!! LOGO !!!-->
-          <a class="nav-logo" href="./index.html" aria-label="Site logo">
-            <!-- Українською: Посилання на головну сторінку з логотипом / English: Home page link with logo -->
-            <svg class="nav-logo-icon" width="100" height="30">
-              <!-- Українською: SVG іконка логотипу / English: SVG logo icon -->
-              <use href="./img/sprite.svg#logo"></use>
-              <!-- Українською: Використання SVG спрайту / English: SVG sprite usage -->
-            </svg>
+        <nav class="nav" aria-label="Головна навігація">
+          <a class="nav-logo" href="./index.html" aria-label="Image Search — головна">
+            <span class="main-title-gradient">Image Search</span>
           </a>
-          <!--!!! NAVIGATION LIST !!!-->
-          <ul class="nav-list">
-            <!-- Українською: Список навігаційних посилань / English: Navigation links list -->
-            <li class="nav-item">
-              <!-- Українською: Елемент навігації для Timer / English: Navigation item for Timer -->
-              <a class="nav-link" href="./1-timer.html">Timer</a>
-              <!-- Українською: Посилання на сторінку таймера / English: Timer page link -->
-            </li>
-            <li class="nav-item">
-              <!-- Українською: Елемент навігації для Snackbar / English: Navigation item for Snackbar -->
-              <a class="nav-link" href="./2-snackbar.html">Snackbar</a>
-              <!-- Українською: Посилання на сторінку сповіщень / English: Snackbar page link -->
-            </li>
-          </ul>
         </nav>
       </div>
     </header>
     <!--!!! MAIN !!!-->
     <main class="page-main">
-      <!-- Українською: Основний вміст сторінки / English: Main page content -->
-      <div class="container">
+      <!-- Українською: Основний вміст сторінки (форма пошуку, лоадер, галерея) / English: Main content (search form, loader, gallery) -->
+      <div class="container container--gallery">
         <!-- Українською: Контейнер для обмеження ширини контенту / English: Container for content width limitation -->
-        <h1 class="main-title">
-          <!-- Українською: Головний заголовок сторінки / English: Main page heading -->
-          <span class="main-title-gradient">Welcome</span> to Timer
-        </h1>
-        <div class="timer-controls">
-          <!-- Українською: Панель керування таймером / English: Timer controls -->
-          <input
-            type="text"
-            id="datetime-picker"
-            aria-label="Timer date and time"
-            placeholder="Select date and time" />
-          <button type="button" data-start>Start</button>
-        </div>
-        <div class="timer" aria-live="polite">
-          <!-- Українською: Контейнер для лічильника часу / English: Time counter container -->
-          <div class="field">
-            <span class="value" data-days>00</span>
-            <span class="label">Days</span>
-          </div>
-          <div class="field">
-            <span class="value" data-hours>00</span>
-            <span class="label">Hours</span>
-          </div>
-          <div class="field">
-            <span class="value" data-minutes>00</span>
-            <span class="label">Minutes</span>
-          </div>
-          <div class="field">
-            <span class="value" data-seconds>00</span>
-            <span class="label">Seconds</span>
+        <h1 class="main-title visually-hidden">Image Search</h1>
+        <!-- Українською: Семантичний заголовок (прихований для доступності) / English: Semantic heading (visually hidden for a11y) -->
+        <form class="form">
+          <!-- Українською: Форма пошуку зображень за ключовим словом / English: Image search form by keyword -->
+          <label>
+            <input
+              type="text"
+              name="search-text"
+              placeholder="Search images..."
+              required />
+          </label>
+          <button type="submit">Search</button>
+        </form>
+        <div class="loader-wrap is-hidden" aria-live="polite">
+          <!-- Українською: Індикатор завантаження (прихований за замовчуванням) / English: Loading indicator (hidden by default) -->
+          <div class="loader-inner ball-spin-fade-loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
           </div>
         </div>
+        <ul class="gallery" aria-label="Gallery of search results"></ul>
+        <!-- Українською: Контейнер галереї результатів пошуку (заповнюється через JavaScript) / English: Gallery container (populated via JavaScript) -->
       </div>
     </main>
     <!--!!! FOOTER !!!-->
     <footer class="page-footer">
       <!-- Українською: Нижня частина сторінки (копірайт, посилання) / English: Bottom section (copyright, links) -->
-      <load src="./partials/footer.html" />
-      <!-- Українською: Підключення шаблону footer / English: Footer template -->
+      <div class="container">
+        <p class="footer-desc">
+          Made with ✨ by
+          <a
+            class="footer-link"
+            href="https://goit.global/ua/"
+            target="_blank"
+            rel="noopener noreferrer">
+            GoIT team
+          </a>
+        </p>
+      </div>
     </footer>
     <!--!!! SCRIPT !!!-->
-    <script type="module" src="./js/1-timer.js"></script>
-    <!-- Українською: Підключення JavaScript модуля для функціональності таймера / English: JavaScript module for timer functionality -->
+    <script type="module" src="./main.js"></script>
+    <!-- Українською: Підключення JavaScript модуля для пошуку зображень / English: JavaScript module for image search functionality -->
   </body>
 </html>
