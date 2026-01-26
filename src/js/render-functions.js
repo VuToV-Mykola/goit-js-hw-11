@@ -1,15 +1,11 @@
-// Підключення SimpleLightbox та його стилів
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-// Посилання на контейнер галереї та елемент лоадера
 const galleryEl = document.querySelector('.gallery');
 const loaderEl = document.querySelector('.loader-wrap');
 
-// Екземпляр SimpleLightbox (лінива ініціалізація при першому createGallery)
 let lightboxInstance = null;
 
-// Створення HTML-розмітки однієї картки зображення
 function createCardMarkup(img) {
   const {
     webformatURL,
@@ -20,22 +16,15 @@ function createCardMarkup(img) {
     comments = 0,
     downloads = 0,
   } = img;
-
-  // Екранування спецсимволів для безпечного використання в alt/title
-  const raw = String(tags).slice(0, 200);
-  const safe = raw
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+  const alt = String(tags).slice(0, 200);
 
   return `
 <li class="gallery-item">
-  <a class="gallery-item__link" href="${largeImageURL}" title="${safe}">
+  <a class="gallery-item__link" href="${largeImageURL}" title="${alt}">
     <img
       class="gallery-item__img"
       src="${webformatURL}"
-      alt="${safe}"
+      alt="${alt}"
       loading="lazy"
       width="640"
       height="360"
@@ -50,21 +39,17 @@ function createCardMarkup(img) {
 </li>`;
 }
 
-// Додає розмітку галереї в DOM та викликає refresh() на SimpleLightbox
 export function createGallery(images) {
   if (!galleryEl) return;
-
-  // Порожній масив або не масив — очищаємо галерею
   if (!Array.isArray(images) || images.length === 0) {
     galleryEl.innerHTML = '';
+    lightboxInstance?.refresh();
     return;
   }
 
-  // Генеруємо розмітку всіх карток одним рядком
   const markup = images.map(createCardMarkup).join('');
   galleryEl.innerHTML = markup;
 
-  // Ініціалізація лайтбокса або оновлення після додавання нових елементів
   if (!lightboxInstance) {
     lightboxInstance = new SimpleLightbox('.gallery a', {
       captionsData: 'title',
@@ -75,17 +60,14 @@ export function createGallery(images) {
   }
 }
 
-// Очищення вмісту контейнера галереї
 export function clearGallery() {
   if (galleryEl) galleryEl.innerHTML = '';
 }
 
-// Показ індикатора завантаження (прибирає клас is-hidden)
 export function showLoader() {
   if (loaderEl) loaderEl.classList.remove('is-hidden');
 }
 
-// Приховування індикатора завантаження (додає клас is-hidden)
 export function hideLoader() {
   if (loaderEl) loaderEl.classList.add('is-hidden');
 }

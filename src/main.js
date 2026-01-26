@@ -37,8 +37,8 @@ function handleSearchSubmit(event) {
 
       // Перевірка на відсутність даних або порожній масив hits
       if (!data || !Array.isArray(data.hits)) {
-        iziToast.info({
-          title: 'Info',
+        iziToast.error({
+          title: 'Error',
           message:
             'Sorry, there are no images matching your search query. Please try again!',
           position: 'topRight',
@@ -48,8 +48,8 @@ function handleSearchSubmit(event) {
       }
 
       if (data.hits.length === 0) {
-        iziToast.info({
-          title: 'Info',
+        iziToast.error({
+          title: 'Error',
           message:
             'Sorry, there are no images matching your search query. Please try again!',
           position: 'topRight',
